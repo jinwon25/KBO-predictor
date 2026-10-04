@@ -1,8 +1,10 @@
-# KBO Predictor
+# KBO-predictor | 경기 승부예측 운영 시스템
 
 **KBO 경기 승부예측과 일정 연동·자동 실행·결과 분석을 연결하는 운영 시스템입니다.**
 
 2026 스탯티즈 대학생 승부예측 대회에 참가한 4인 팀 프로젝트입니다. 데이터 처리와 모델 개발에서 웹 대시보드, 서버 및 자동 제출 운영까지 이어지는 과정을 진행하고 있습니다.
+
+이 저장소에서는 운영 구조와 독립적으로 작성한 **합성 데이터 예제**를 확인할 수 있습니다. 실제 학습 모델·대회 데이터·자동 제출 코드는 별도로 관리합니다.
 
 > **대회 참가·운영 중 · 2026-10-04 기준**
 >
@@ -16,7 +18,8 @@
 | 팀 구성 | 4인 팀 프로젝트 |
 | 나의 참여 범위 | 데이터 처리, 모델 개발, 웹 UI, 서버 및 자동 제출 운영 전반 |
 | 현재 상태 | 대회 참가 및 시스템 운영 중 |
-| 주요 기술 | Python · Flask · APScheduler · LightGBM · HTML/CSS/JavaScript |
+| 운영본 기술 | Python · Flask · APScheduler · LightGBM · HTML/CSS/JavaScript |
+| 공개 예제 기술 | Python 표준 라이브러리 · HTML/CSS/JavaScript |
 | 현재 공개 범위 | 운영 구조 설명, 독립적인 합성 데이터 데모, 평가 예제, 테스트 |
 | 추후 정리 | 최종 결과 검증, 공개 가능한 화면·코드·회고 검토 |
 
@@ -79,8 +82,8 @@ flowchart LR
 Python 3.11 이상에서 추가 패키지 없이 실행할 수 있습니다.
 
 ```bash
-git clone https://github.com/jinwon25/kbo-predictor.git
-cd kbo-predictor
+git clone https://github.com/jinwon25/KBO-predictor.git
+cd KBO-predictor
 python -m demo.server
 ```
 
@@ -124,3 +127,5 @@ docs/                운영 구조, 공개 정책, 데모 안내
 - [스탯티즈 승부예측 대회 정책안](https://statiz.co.kr/board/?b_code=10000&b_idx=4294959131&m=main&mode=view)
 
 마지막 정리: 2026-10-04. 공개 코드의 라이선스는 [MIT](LICENSE)이며, 대회 데이터나 제3자 자료의 이용 권한을 부여하지 않습니다.
+
+함께 볼 분석: [투수 피로 신호와 교체 의사결정](https://github.com/jinwon25/KBO-pitcher-fatigue) · [데이콘 분석·예측 대회 기록](https://github.com/jinwon25/Dacon).

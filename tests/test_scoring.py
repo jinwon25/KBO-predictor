@@ -54,6 +54,10 @@ class ScoringTests(unittest.TestCase):
                 self.assertEqual(sum(row[field] for row in data[key]), data['summary'][field])
         self.assertEqual(games(), games())
 
+    def test_accuracy_keeps_two_decimal_places(self):
+        result = summarize([self.game, dict(self.game, probability=None), dict(self.game, probability=40)])
+        self.assertEqual(result['accuracy'], 33.33)
+
 
 if __name__ == '__main__':
     unittest.main()

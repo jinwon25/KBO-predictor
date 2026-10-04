@@ -1,4 +1,4 @@
-"""Conservative checks of tracked files (or working files before git init)."""
+"""공개할 추적 파일과 새 파일의 형식·인증 정보·운영 주소를 검사합니다."""
 import re
 import subprocess
 from pathlib import Path
@@ -10,8 +10,8 @@ SKIP = {'.git', '__pycache__', '.venv', 'venv', 'reports'}
 
 def files():
     if (ROOT / '.git').is_dir():
-        output = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT)
-        return [ROOT / name.decode('utf-8') for name in output.split(b'\0') if name]
+        output = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=ROOT)
+        return [ROOT / name.decode('utf-8') for name in output.split(b'\0') if name and (ROOT / name.decode('utf-8')).is_file()]
     return [p for p in ROOT.rglob('*') if p.is_file() and not SKIP.intersection(p.relative_to(ROOT).parts)]
 
 
@@ -50,5 +50,5 @@ if __name__ == '__main__':
     issues = inspect(selected)
     for issue in issues:
         print(issue)
-    print(f'Checked {len(selected)} public files; {len(issues)} issue(s).')
+    print(f'공개 파일 {len(selected)}개 검사, 발견 사항 {len(issues)}건.')
     raise SystemExit(bool(issues))

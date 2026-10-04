@@ -1,7 +1,7 @@
 'use strict';
 let data;
 const $ = selector => document.querySelector(selector);
-const percent = value => value == null ? '—' : `${value.toFixed(1)}%`;
+const percent = value => value == null ? '—' : `${value.toFixed(2)}%`;
 const reasons = {hit:'적중',miss:'실패',neutral:'50.00% · 실패',late:'마감 후 · 실패',missing:'미제출 · 실패',excluded:'평가 제외',pending:'결과 대기'};
 const descriptions = {prediction:'예측 확률과 경기 결과를 한눈에 확인합니다.',statistics:'평가 분모와 적용 기간을 함께 확인합니다.',operations:'일정 확인부터 기록 검증까지 운영 흐름을 살펴봅니다.'};
 document.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => {

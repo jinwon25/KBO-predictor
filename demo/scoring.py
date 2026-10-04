@@ -43,4 +43,4 @@ def summarize(games):
     submitted = sum(item['submitted'] for item in scored)
     hits = sum(item['hit'] for item in scored)
     return dict(eligible=eligible, submitted=submitted, hits=hits,
-                accuracy=round(100 * hits / eligible, 1) if eligible else None)
+                accuracy=round(100 * hits / eligible, 2) if eligible else None)
