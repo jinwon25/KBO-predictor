@@ -1,5 +1,7 @@
 # KBO-predictor | 경기 승부예측 운영 시스템
 
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) [![코드 라이선스: MIT](https://img.shields.io/badge/License-MIT-3DA639)](LICENSE) [![검증](https://github.com/jinwon25/KBO-predictor/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/jinwon25/KBO-predictor/actions/workflows/checks.yml)
+
 **KBO 경기 승부예측과 일정 연동·자동 실행·결과 분석을 연결하는 운영 시스템입니다.**
 
 2026 스탯티즈 대학생 승부예측 대회에 참가한 4인 팀 프로젝트입니다. 데이터 처리와 모델 개발에서 웹 대시보드, 서버 및 자동 제출 운영까지 이어지는 과정을 진행하고 있습니다.
