@@ -1,2 +1,7 @@
 * text=auto eol=lf
 *.png binary
+
+# 운영 화면 기록은 문서이며, 고정된 화면 HTML은 생성 산출물입니다.
+docs/showcase/** linguist-documentation
+docs/showcase/*.html linguist-generated
+docs/showcase/index.html -linguist-generated
