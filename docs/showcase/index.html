@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; connect-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<title>KBO 승부예측 — 운영 화면 기록</title>
+<style>
+:root{color-scheme:light;--ink:#142f46;--muted:#546878;--line:#d4dfe7;--green:#126656}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f3f6f8;color:var(--ink);font:16px/1.75 "Malgun Gothic",system-ui,sans-serif}
+a{color:#175da1;text-underline-offset:4px}a:focus-visible{outline:3px solid #eaa21c;outline-offset:5px}
+header{background:#122a40;color:white;padding:54px max(22px,calc((100vw - 1160px)/2))}
+header a{color:#c3e6fa}header p{max-width:790px}.eyebrow{color:#94e2cd;font-size:14px;font-weight:700;letter-spacing:.1em}
+h1{font-size:clamp(28px,5vw,43px);line-height:1.35;margin:14px 0}h2{font-size:26px;margin:0 0 15px}h3{font-size:21px;margin:0 0 8px}
+main{max-width:1204px;margin:auto;padding:30px 22px 64px}.notice{border-left:4px solid var(--green);background:#e7f3ef;padding:16px 20px;border-radius:7px}
+nav{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 34px}nav a,.open-view{display:inline-block;padding:9px 15px;border:1px solid var(--line);background:white;border-radius:8px;font-weight:700;text-decoration:none}
+.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:25px 0 42px}.overview article{background:white;border:1px solid var(--line);border-radius:12px;padding:22px}
+.overview b{color:var(--green)}.overview p{margin:8px 0 0}.screen{background:white;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 30px;scroll-margin-top:20px}.copy{padding:25px 28px}.copy p{margin:8px 0}.number{color:var(--green);font-size:13px;font-weight:700}
+figure{margin:0;background:#e9eff4;border-top:1px solid var(--line)}figure img{display:block;width:100%;height:auto}figure.mobile img{width:min(390px,100%);margin:auto}figcaption{padding:16px 28px;background:#f8fafb;font-size:14px;color:var(--muted)}
+.scope{padding:28px;background:#e9eff3;border-radius:12px}.scope p{margin:10px 0}.footer{margin-top:22px;color:var(--muted);font-size:14px}
+@media(max-width:760px){.overview{grid-template-columns:1fr}.copy{padding:22px 18px}figcaption{padding:16px 18px}header{padding-top:35px;padding-bottom:35px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head>
+<body>
+<header><div class="eyebrow">KBO-PREDICTOR · 운영과 검증</div><h1>경기 전 예측에서<br>제출 접수와 결과 대조까지</h1>
+<p>KBO 승리 확률을 만드는 과정과 매일의 실행·제출·평가를 연결한 4인 팀 프로젝트입니다. 원격 서버에서 사용한 대시보드의 화면 구성과 운영 판단을 이 기록에서 확인할 수 있습니다.</p>
+<p><a href="../../README.md">프로젝트 README</a> · <a href="../season-review-2026.md">2026 시즌 회고</a> · <a href="../research-plan.md">다음 연구 설계</a></p></header>
+<main><aside class="notice"><strong>실제 운영 UI · 독립 합성 데이터 · 읽기 전용 정적 기록</strong><br>
+2026-10-13에 확인한 원격 화면의 HTML·스타일을 사용하고, 표시 내용은 2030년 가상 경기로 교체했습니다. 아래 수치·선수·접수 상태는 실제 성적이 아닙니다. 서버 연결·로그인·모델 실행 없이 열립니다.</aside>
+<nav aria-label="화면 바로 가기"><a href="#prediction">경기 예측</a><a href="#schedule">일정과 예약 실행</a><a href="#submission">제출 응답</a><a href="#accuracy">기간별 성적</a><a href="#statistics">통계 분석</a><a href="#mobile">모바일 확인</a></nav>
+<section aria-label="운영에서 다루는 세 가지 질문" class="overview">
+<article><b>01 · 예측을 읽는 법</b><h3>확률과 입력 상태</h3><p>우세 팀뿐 아니라 접전, 선발·라인업 확정 여부와 비교 지표를 확인합니다.</p></article>
+<article><b>02 · 실행을 끝내는 법</b><h3>일정과 접수 응답</h3><p>예측 파일이 생긴 것과 대회 서버가 제출을 접수한 것을 구분합니다.</p></article>
+<article><b>03 · 성능을 검토하는 법</b><h3>표본과 평가 기간</h3><p>기간별 분모를 표시하고, 공식 참가 성적과 내부 모델 비교의 목적을 분리합니다.</p></article>
+</section>
+<section class="screen" id="prediction"><div class="copy"><div class="number">화면 01</div><h2>경기 예측</h2><p>승리 확률과 접전 여부를 먼저 보고, 선발·불펜·타선·구장 비교 지표를 함께 확인합니다.</p><p>모델의 확률과 화면의 보조 지표를 구별합니다. 비교 지표는 인과적 승패 원인이라는 뜻이 아닙니다.</p><a class="open-view" href="prediction.html">정적 화면 열기 ↗</a></div><figure><img src="../images/operating-ui-preview-prediction.png" alt="경기 예측 — 실제 운영 화면 구성에 합성 입력을 적용한 기록. 승리 확률과 접전 여부를 먼저 보고, 선발·불펜·타선·구장 비교 지표를 함께 확인합니다." width="1440" height="1100" loading="eager"><figcaption>모델의 확률과 화면의 보조 지표를 구별합니다. 비교 지표는 인과적 승패 원인이라는 뜻이 아닙니다.</figcaption></figure></section>
+<section class="screen" id="schedule"><div class="copy"><div class="number">화면 02</div><h2>일정과 예약 실행</h2><p>경기 일정 자동 감지, 경기 시작 전 실행 시각, 자동 제출 여부를 한 곳에서 설정합니다.</p><p>마감 전 실행과 접수 확인은 서로 다른 단계입니다. 수동 제출 누락 경험에서 운영 자동화로 이어진 문제를 설명합니다.</p><a class="open-view" href="schedule.html">정적 화면 열기 ↗</a></div><figure><img src="../images/operating-ui-preview-schedule.png" alt="일정과 예약 실행 — 실제 운영 화면 구성에 합성 입력을 적용한 기록. 경기 일정 자동 감지, 경기 시작 전 실행 시각, 자동 제출 여부를 한 곳에서 설정합니다." width="1440" height="1100" loading="lazy"><figcaption>마감 전 실행과 접수 확인은 서로 다른 단계입니다. 수동 제출 누락 경험에서 운영 자동화로 이어진 문제를 설명합니다.</figcaption></figure></section>
+<section class="screen" id="submission"><div class="copy"><div class="number">화면 03</div><h2>제출 응답</h2><p>경기별 제출 확률·응답 코드·메시지로 접수 확인과 대기 상태를 구분합니다.</p><p>그림의 4건 접수·1건 대기는 가상 시나리오입니다. 실제 접수율이나 가동률 측정값이 아닙니다.</p><a class="open-view" href="submission.html">정적 화면 열기 ↗</a></div><figure><img src="../images/operating-ui-preview-submission.png" alt="제출 응답 — 실제 운영 화면 구성에 합성 입력을 적용한 기록. 경기별 제출 확률·응답 코드·메시지로 접수 확인과 대기 상태를 구분합니다." width="1440" height="1100" loading="lazy"><figcaption>그림의 4건 접수·1건 대기는 가상 시나리오입니다. 실제 접수율이나 가동률 측정값이 아닙니다.</figcaption></figure></section>
+<section class="screen" id="accuracy"><div class="copy"><div class="number">화면 04</div><h2>기간별 성적</h2><p>채점 경기·적중·미입력·취소를 분리하고, 선택 기간의 날짜별 적중 흐름을 확인합니다.</p><p>가상 기록 75경기 중 44경기 적중입니다. 주최 측 참가 기록 54.6%와 무관합니다.</p><a class="open-view" href="accuracy.html">정적 화면 열기 ↗</a></div><figure><img src="../images/operating-ui-preview-accuracy.png" alt="기간별 성적 — 실제 운영 화면 구성에 합성 입력을 적용한 기록. 채점 경기·적중·미입력·취소를 분리하고, 선택 기간의 날짜별 적중 흐름을 확인합니다." width="1440" height="1100" loading="lazy"><figcaption>가상 기록 75경기 중 44경기 적중입니다. 주최 측 참가 기록 54.6%와 무관합니다.</figcaption></figure></section>
+<section class="screen" id="statistics"><div class="copy"><div class="number">화면 05</div><h2>통계 분석</h2><p>모델 적용 기간·표본 수, 팀별 홈·원정 성적과 월별 집계를 확인합니다.</p><p>서로 다른 기간의 모델 성적은 동일 경기 비교가 아니므로 우열을 바로 판정하지 않습니다.</p><a class="open-view" href="statistics.html">정적 화면 열기 ↗</a></div><figure><img src="../images/operating-ui-preview-statistics.png" alt="통계 분석 — 실제 운영 화면 구성에 합성 입력을 적용한 기록. 모델 적용 기간·표본 수, 팀별 홈·원정 성적과 월별 집계를 확인합니다." width="1440" height="1100" loading="lazy"><figcaption>서로 다른 기간의 모델 성적은 동일 경기 비교가 아니므로 우열을 바로 판정하지 않습니다.</figcaption></figure></section>
+<section class="screen" id="mobile"><div class="copy"><div class="number">화면 06</div><h2>모바일 확인</h2><p>좁은 화면에서는 요약 카드와 하단 메뉴로 경기·성적·제출을 확인합니다.</p><p>390 × 920 화면의 반응형 표시 기록입니다. 실제 휴대폰의 모든 환경을 검증했다는 뜻은 아닙니다.</p><a class="open-view" href="mobile.html">정적 화면 열기 ↗</a></div><figure class="mobile"><img src="../images/operating-ui-preview-mobile.png" alt="모바일 확인 — 실제 운영 화면 구성에 합성 입력을 적용한 기록. 좁은 화면에서는 요약 카드와 하단 메뉴로 경기·성적·제출을 확인합니다." width="390" height="920" loading="lazy"><figcaption>390 × 920 화면의 반응형 표시 기록입니다. 실제 휴대폰의 모든 환경을 검증했다는 뜻은 아닙니다.</figcaption></figure></section>
+<section class="scope"><h2>화면으로 확인할 수 있는 범위</h2>
+<p>실제 운영의 화면 구조, 표시 항목과 판단 흐름을 보존한 기록입니다. 정적 화면의 조작 버튼은 비활성화되어 있습니다. 현재 상태 조회·제출·모델 추론은 실행하지 않습니다.</p>
+<p>주최 측 공개 팀 페이지는 2026-10-13 조회 시점에 16위·시즌 적중률 54.6%·게임 참여수 689경기·ALL KILL 5회를 표시했습니다. 참여수와 적중률의 분모는 별도로 읽으며, 최종 수상 결과를 의미하지 않습니다. <a href="https://www.statiz.co.kr/prediction/?m=university_detail&amp;ptt_idx=70">주최 측 팀 기록</a></p>
+<p>팀 프로젝트 전체를 단독 개발 성과로 제시하지 않습니다. 개인 역할과 확인한 기여 범위는 <a href="../../README.md">README</a>, 수동 제출과 원격 자동 운영의 시점 구분은 <a href="../season-review-2026.md">시즌 회고</a>에서 설명합니다.</p>
+<p>실제 데이터·학습 모델·제출 원장·운영 주소·원본 실행 코드는 이 기록에 포함하지 않습니다. 시스템 글꼴과 가상 팀 문자 로고를 사용하고, 외부 장식용 아이콘 의존성을 제거했습니다. <a href="../dashboard-showcase.md">작성 근거와 화면 안내</a> · <a href="../data-policy.md">자료 이용 조건</a></p></section>
+<p class="footer">마지막 정리 2026-10-13 · HTML과 이미지는 외부 API 없이 열리는 문서 자료입니다.</p>
+</main></body></html>

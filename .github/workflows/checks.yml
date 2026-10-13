@@ -1,4 +1,4 @@
-name: 합성 예제 검증
+name: 공개 자료와 합성 예제 검증
 on: [push, pull_request]
 permissions:
   contents: read

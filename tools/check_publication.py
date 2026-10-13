@@ -5,6 +5,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {'.py', '.md', '.html', '.css', '.js', '.yml', '.png'}
+REVIEWED_UI_IMAGES = {
+    'docs/images/operating-ui-preview-' + name + '.png'
+    for name in ('prediction', 'schedule', 'submission', 'accuracy', 'statistics', 'mobile')
+}
 SKIP = {'.git', '__pycache__', '.venv', 'venv', 'reports'}
 
 
@@ -31,7 +35,7 @@ def inspect(paths):
         if path.stat().st_size > 2_000_000:
             errors.append(f'{name}: unusually large file')
         if path.suffix == '.png':
-            if not name.startswith('docs/images/demo-'):
+            if not name.startswith('docs/images/demo-') and name not in REVIEWED_UI_IMAGES:
                 errors.append(f'{name}: only reviewed synthetic screenshots allowed')
             continue
         text = path.read_text(encoding='utf-8')
