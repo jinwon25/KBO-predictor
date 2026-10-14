@@ -84,13 +84,16 @@ Python 3.11 이상에서 추가 패키지 없이 실행합니다.
 git clone https://github.com/jinwon25/KBO-predictor.git
 cd KBO-predictor
 python -m demo.metric_audit
+python -m demo.operations_audit
 python -m unittest discover -s tests -v
 python tools/check_publication.py
 ```
 
 별도의 작은 대시보드 데모는 `python -m demo.server` 실행 후 `http://127.0.0.1:5080`에서 확인합니다. 종료는 `Ctrl+C`입니다. [합성 데모 안내](docs/demo.md)
 
-공개 검증은 채점 경계·분모·미확인 상태·읽기 전용 HTTP·정적 화면을 확인합니다. 실제 모델의 학습·시즌 성능 재현과는 확인 범위가 다릅니다.
+[SQL 대조와 시간 감사](docs/operations-review.md)는 독립 합성 4경기로 일정의 왼쪽 결합·중복 접수 제거·마감 여유·누락 시각 처리를 재현합니다. 실제 보관 자료에도 같은 대조를 적용했고 원장과 집계의 일치를 확인했습니다.
+
+공개 검증은 채점 경계·분모·미확인 상태·SQL 결합·시간대·읽기 전용 HTTP·정적 화면을 확인합니다. 실제 모델의 학습·시즌 성능 재현과는 확인 범위가 다릅니다.
 
 ## 다음 연구
 
@@ -98,15 +101,17 @@ python tools/check_publication.py
 
 | 우선 방향 | 분석 질문 | 현재 상태 |
 | --- | --- | --- |
-| 데이터 품질·평가용 데이터마트 | 일정·예측·접수·결과의 누락과 차이가 평가에 어떤 영향을 주는가? | 설계 |
-| 예측 시점의 정보 가치 | 경기 직전 정보를 기다릴 때 확률 품질과 처리 여유가 어떻게 바뀌는가? | 설계 |
-| 실패 조건·단순 모델 비교 | 어떤 입력·상황에서 모델을 덜 믿어야 하는가? | 기존 E0–E4와 연결한 설계 |
+| 데이터 품질·평가용 데이터마트 | 일정·예측·접수·결과의 누락과 차이가 평가에 어떤 영향을 주는가? | 완료 경기 범위 SQLite 대조·검증 |
+| 예측 시점의 정보 가치 | 경기 직전 정보를 기다릴 때 확률 품질과 처리 여유가 어떻게 바뀌는가? | 접수 여유 분석 완료, 다중 시점 입력 비교 대기 |
+| 실패 조건·단순 모델 비교 | 어떤 입력·상황에서 모델을 덜 믿어야 하는가? | 모델 불일치 구간 회고 진단, 새 학습 미실행 |
 | 제출 없는 포스트시즌 평가 | 정규시즌에서 고정한 모델이 다른 환경에서도 작동하는가? | [프로토콜](docs/postseason-protocol.md) 설계, 자료 이용 조건 확인 필요 |
 | 시리즈 확률·민감도 | 경기 확률이 진출 확률과 예상 경기 수로 어떻게 연결되는가? | [독립 합성 예제](docs/series-scenarios.md) 구현·검증 |
 
 시리즈 예제는 추가 패키지 없이 `python -m demo.series_scenarios`로 실행합니다. 무승부 없는 가상 시리즈에서 매 경기 승률을 55%로 고정하면 7전4선승 진출 확률은 60.83%입니다. 이는 입력 가정을 변환한 계산이며 실제 팀의 예측 성과가 아닙니다.
 
-운영의 수동 개입·처리 지연 측정과 이용 조건이 명확한 별도 공개 자료의 재현 연구도 검토했습니다. 실제 자료의 신규 수집·포스트시즌 추론·모델 교체는 아직 실행하지 않았습니다. 이미 점검한 2026년 자료는 개발·회고 자료로 표시하고 이후 평가를 구분합니다.
+**기존 경기 30분 전 실행은 라인업이 60∼30분 전에 갱신되는 운영자 관측에 따른 선택입니다.** 보관 접수 기록의 처리 여유를 점검했고, 실행 시점을 더 늦추는 변경은 채택하지 않았습니다. [관측 → 시간 감사 → 유지 판단](docs/operations-review.md)을 정리했습니다.
+
+수동 개입 시간 측정과 이용 조건이 명확한 별도 공개 자료의 재현 연구도 검토했습니다. 실제 자료의 신규 수집·포스트시즌 추론·모델 교체는 아직 실행하지 않았습니다. 이미 점검한 2026년 자료는 개발·회고 자료로 표시하고 이후 평가를 구분합니다.
 
 [모델 연구 E0–E5](docs/research-plan.md) · [실험 기록 양식](docs/experiment-log.md) · [참고 문헌](docs/references.md)
 
@@ -117,6 +122,7 @@ python tools/check_publication.py
 | [docs/README.md](docs/README.md) | 읽는 순서와 용어 |
 | [docs/season-review-2026.md](docs/season-review-2026.md) | 참가 결과, 실제 관측과 판단, 미해결 범위 |
 | [docs/evaluation-guide.md](docs/evaluation-guide.md) | 지표의 분자·분모·제외 조건과 9경기 계산 |
+| [docs/operations-review.md](docs/operations-review.md) | T−30 운영 근거·SQL 대조·시간 감사·오류 구간 진단 |
 | [docs/development-roadmap.md](docs/development-roadmap.md) | 8개 발전 방향과 우선순위·완료 산출물 |
 | [docs/postseason-protocol.md](docs/postseason-protocol.md) | 제출 없는 경기 전 평가의 시점·무승부·자료 조건 |
 | [docs/series-scenarios.md](docs/series-scenarios.md) | 시리즈 진출 확률·예상 경기 수·가정 민감도 |

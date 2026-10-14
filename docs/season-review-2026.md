@@ -4,6 +4,8 @@
 
 [문서 목록](README.md) · [연구 고도화 계획](research-plan.md)
 
+2026-10-14 추가 결산에서는 완료 경기의 SQL 대조, T−30 실행 근거와 접수 여유, 모델 불일치 구간·블록 크기별 불확실성을 점검했습니다. [운영 기록 분석과 판단](operations-review.md)에 실행 범위와 남은 관측 과제를 정리했습니다.
+
 ## 주최 측 공개 기록
 
 2026년 10월 14일 [중앙대학교 최강이조 참가 페이지](https://www.statiz.co.kr/prediction/?m=university_detail&ptt_idx=70)를 조회했습니다.
