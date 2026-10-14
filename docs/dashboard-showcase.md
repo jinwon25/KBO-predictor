@@ -10,7 +10,7 @@
 2. **실행과 접수**: 일정에 따른 예측 실행과 주최 측 접수 응답을 별도로 추적합니다.
 3. **성능과 분모**: 기간별 적중·미입력·취소와 모델의 적용 기간·표본 수를 함께 봅니다.
 
-시즌 결산과 연구 판단은 [시즌 회고](season-review-2026.md)와 [연구 계획](research-plan.md)으로 연결합니다. 그림만으로 모델 성능이나 운영 안정성을 증명하지 않습니다.
+참가 결과와 운영 판단은 [시즌 회고](season-review-2026.md)와 [운영 기록 분석](operations-review.md)으로 연결합니다. 그림만으로 모델 성능이나 운영 안정성을 증명하지 않습니다.
 
 ## 기록 방식과 공개 범위
 
@@ -92,24 +92,17 @@ GitHub는 HTML 파일을 코드로 표시합니다. 저장소를 clone하거나 
 | 1 | 승리 확률 생성과 일일 제출을 연결해야 하는 문제 | [README](../README.md), 경기 예측·일정 설정 화면 |
 | 2 | 초반 수동 제출과 이후 원격 운영 경험 | [시즌 회고](season-review-2026.md), 제출 응답 화면 |
 | 3 | 결과를 과장하지 않는 평가 방식 | 공식 참가 기록, 기간·표본을 표시한 성적 화면 |
-| 4 | 다음 실험에서 해결할 입력 정합성·표본 수축·확률 품질 | [연구 계획](research-plan.md), [실험 기록](experiment-log.md) |
+| 4 | 실제 수행한 SQL 대조·접수 여유·모델 비교와 해석 | [운영 기록 분석](operations-review.md), [지표 정의](evaluation-guide.md) |
 
 초기 원격 운영 시작일과 수동 제출 접수 원장 전체는 확정하지 않았습니다. 현재 화면이 있다는 이유로 대회 전체 기간에 자동 운영했다고 표현하지 않습니다. 팀 전체 작업과 개인 기여도도 구분합니다.
-
-## 다른 저장소와 형식을 맞춘 기준
-
-`jinwon25`의 [LoL 인사이트 노트](https://github.com/jinwon25/lol-live-ops-analytics), [KBO 투수 피로 분석](https://github.com/jinwon25/KBO-pitcher-fatigue), [이커머스 고객 세분화](https://github.com/jinwon25/ecommerce-customer-segmentation)의 공개 README를 2026-10-13에 대조했습니다. 한국어 문제 소개, 주요 결과, 화면과 해석, 실행 조건, 상세 문서, 한계·출처의 흐름을 참고했습니다. 파일 구조는 현재 KBO 예제의 `demo/`·`web/`을 유지하고 화면 기록을 `docs/showcase/`·`docs/images/`에 추가했습니다.
-
-이 프로젝트의 사례 설명에도 문제·판단·실제 결과·남은 과제를 연결했습니다. 다른 저장소의 개인 기여율이나 수상 내역을 가져오지 않았습니다.
 
 ## 참고 자료와 적용
 
 | 자료 | 적용한 판단 |
 | --- | --- |
-| [NN/g: UX-Design Portfolio](https://www.nngroup.com/articles/ux-design-portfolios/) | 최종 그림과 함께 문제·역할·제약·과정·결과·배운 점을 설명. UI 직무 조사이므로 데이터 직무의 합격 효과로 일반화하지 않음 |
 | [Microsoft: 대시보드 설계 팁](https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips) | 먼저 읽을 핵심 정보를 앞에 두고 수치에 맥락을 제공. 원격 화면을 새로 설계한 성과로 주장하지 않음 |
 | [W3C WAI: 정보성 이미지](https://www.w3.org/WAI/tutorials/images/informative/) | 각 이미지의 목적을 설명하는 대체 텍스트와 본문 캡션 제공 |
 | [GitHub: 기본 작성·서식](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) | 상대 이미지·문서 링크로 README와 상세 기록을 연결 |
 | [주최 측 공식 정책](https://www.statiz.co.kr/board/?b_code=10000&b_idx=4294959131&m=main&mode=view) | 제공 자료의 재배포 대신 독립 합성 입력 사용. 종료 후 제출 의무와 공개 허용을 분리 |
 
-확인일: 2026-10-13. 위 자료를 종합한 구성 판단이며, 실제 면접관 대상 효과 검증을 수행한 것은 아닙니다.
+확인일: 2026-10-13. 화면 설명과 공개 범위를 정리할 때 참고했습니다.

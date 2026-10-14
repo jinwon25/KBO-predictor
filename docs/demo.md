@@ -39,7 +39,7 @@
 
 ## 선택적인 화면 검증
 
-실행 방법은 [README](../README.md#직접-확인할-수-있는-분석)에 있습니다. Playwright를 설치하면 5개 화면 폭에서 세 화면과 통계 탭을 검사하고 이 문서의 예제 이미지를 생성합니다.
+실행 방법은 [README](../README.md#프로젝트-실행)에 있습니다. Playwright를 설치하면 5개 화면 폭에서 세 화면과 통계 탭을 검사하고 이 문서의 예제 이미지를 생성합니다.
 
 ```bash
 python -m pip install playwright

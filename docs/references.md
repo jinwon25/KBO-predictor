@@ -1,61 +1,36 @@
 # 참고 문헌과 적용 범위
 
-2026년 10월 13일 논문 출판 페이지·저자 공개본·공식 문서를 확인했습니다. 각 자료가 뒷받침하는 방법과 이 프로젝트에서 검증해야 할 가설을 구분합니다. 논문 원문이나 외부 야구 데이터는 이 저장소에 재배포하지 않습니다.
+대회 결산의 지표 정의·모델 비교·자료 점검과 공개 문서 구성에 참고한 자료입니다. 2026-10-13과 2026-10-14에 확인했으며, 외부 문헌은 이 프로젝트의 실제 성능을 입증하는 자료와 구분합니다.
 
-[문서 목록](README.md) · [연구 고도화 계획](research-plan.md)
+[문서 목록](README.md) · [시즌 결산](season-review-2026.md)
 
-## 확률 예측과 검증
+## 참가 결과와 조건
 
-| 자료 | 참고할 내용 | 적용 제한 |
-| --- | --- | --- |
-| [Gneiting & Raftery (2007), Strictly Proper Scoring Rules, Prediction, and Estimation](https://sites.stat.washington.edu/people/raftery/Research/PDF/Gneiting2007jasa.pdf) | 확률 예측을 Brier·LogLoss 같은 적정 점수 규칙으로 평가하는 근거 | 실제 KBO 성능의 증거가 아니며 적중률·제출률을 대체하지 않음 |
-| [Cawley & Talbot (2010), On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation](https://www.jmlr.org/beta/papers/v11/cawley10a.html) | 후보 선택 과정도 과적합할 수 있다는 근거 | 이미 본 2026년 자료를 새 후보의 독립 최종 평가로 재사용하지 않음 |
-| [Niculescu-Mizil & Caruana (2005), Predicting Good Probabilities With Supervised Learning](https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf) | 학습 알고리즘의 확률 왜곡과 Platt·isotonic 보정 비교 | 다른 데이터의 보정 결과나 표본 기준을 KBO 보장치로 가져오지 않음 |
-| [Guo et al. (2017), On Calibration of Modern Neural Networks](https://proceedings.mlr.press/v70/guo17a.html) | 낮은 자유도의 온도 보정 개념 | 논문의 신경망 결과가 현재 LightGBM에서의 효과를 입증하지 않음 |
-| [Politis & Romano (1994), The Stationary Bootstrap](https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870) | 약하게 의존하는 정상 관측의 재표집이라는 방법적 근거 | 출판 페이지의 초록을 확인한 범위. KBO 시즌의 정상성을 가정하거나 블록 길이의 최적값을 확정하지 않음 |
-| [McElfresh et al. (2023), When Do Neural Nets Outperform Boosted Trees on Tabular Data?](https://proceedings.neurips.cc/paper_files/paper/2023/hash/f06d5ebd4ff40b40dd97e30cee632123-Abstract-Datasets_and_Benchmarks.html) | 표 형식 자료의 특성과 튜닝 조건을 고려한 비교군 선택 | 일반 벤치마크 결과를 특정 KBO 모델 계열의 우월성으로 일반화하지 않음 |
-
-## 정의와 구현을 점검할 공식 문서
-
-| 자료 | 연결할 점검 |
+| 자료 | 확인한 내용 |
 | --- | --- |
-| [scikit-learn: Probability calibration](https://scikit-learn.org/stable/modules/calibration.html) | 기본 모델 학습과 보정 자료 분리, 보정 곡선과 판별력의 구분, 소표본 isotonic 위험 |
-| [scikit-learn: TimeSeriesSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html) | 미래 자료 누출과 행 간격 조건. 실제 실험에서는 경기 수 대신 날짜 경계를 명시 |
-| [scikit-learn: Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html) | 전처리·결측 처리·특성 선택을 학습 구간 안에서 수행 |
-| [scikit-learn: Permutation feature importance](https://scikit-learn.org/stable/modules/permutation_importance.html) | 상관 입력의 중요도 왜곡과 그룹별 제거 실험 |
-| [FanGraphs Library: Strikeout and Walk Rates](https://library.fangraphs.com/pitching/rate-stats/) | SO/TBF와 BB/TBF의 정의. MLB 평균·상수·선수 기록을 대회 입력에 사용하지 않음 |
+| [중앙대학교 최강이조 팀 페이지](https://www.statiz.co.kr/prediction/?m=university_detail&ptt_idx=70) | 2026-10-14 공개 표기: 16위·54.6%·게임 참여수 689경기·ALL KILL 5회 |
+| [2026-03-27 공식 대회 정책](https://statiz.co.kr/board/?b_code=10000&b_idx=4294959131&m=main&mode=view) | 채점·접수 마감·데이터 이용·자료 보존과 사후 제출 조건 |
 
-scikit-learn의 조회 시점 stable 문서는 1.9.1입니다. 개념 설명을 참고했으며 운영 환경 업그레이드나 새 API의 적용을 실행하지 않았습니다. 실제 구현 때는 설치 버전과 동작을 확인합니다.
+공개 페이지의 성적을 모델 입력으로 수집하지 않았습니다. 별도 참가 서약·FAQ·사후 제출 공지 전체를 확보한 것은 아니며, [공개 정책](data-policy.md)에 확인 범위를 기록했습니다.
 
-## 참가 결과와 조건의 출처
+## 분석 방법과 해석
 
-- [중앙대학교 최강이조 팀 페이지](https://www.statiz.co.kr/prediction/?m=university_detail&ptt_idx=70): 2026-10-14 재확인한 공개 표기인 16위·54.6%·게임 참여수 689경기·ALL KILL 5회 확인.
-- [2026-03-27 공식 대회 정책](https://statiz.co.kr/board/?b_code=10000&b_idx=4294959131&m=main&mode=view): 채점·접수 마감·데이터 이용·사후 자료 제출 조건을 2026-10-14 재확인.
-
-공개 결과 페이지를 모델 입력으로 수집하지 않았습니다. 별도 참가 서약·FAQ와 사후 제출 공지를 모두 확보한 것은 아니며, 자료의 추가 공개는 [공개 정책](data-policy.md)에서 확인 범위를 기록합니다.
-
-## 결산을 분석 사례로 구성할 때 참고한 자료
-
-2026-10-14에 아래 공식 문서와 원문을 추가로 확인했습니다. 서로 다른 분야의 지침을 이 프로젝트에 적용한 편집·분석 판단이며, 외부 문헌이 실제 KBO 성과를 입증하는 것은 아닙니다.
-
-| 자료 | 이번 반영 | 적용 한계 |
+| 자료 | 결산에 참고한 내용 | 해석 범위 |
 | --- | --- | --- |
-| [Government Data Quality Framework](https://www.gov.uk/government/publications/the-government-data-quality-framework/the-government-data-quality-framework) | 자료 완전성·유일성·일관성·시의성을 나누고, 접수 미확인과 미제출을 구분 | 정부 데이터 관리의 일반 원칙이며 이 대회의 준수 인증이 아님 |
-| [scikit-learn: Probability calibration](https://scikit-learn.org/stable/modules/calibration.html) | 적중률·Brier·LogLoss의 평가 범위를 명시하고 작은 합성 예제로 분모를 대조 | 확률 품질 지표 하나로 보정 개선이나 모델 우월성을 확정하지 않음 |
-| [Cawley & Talbot (2010)](https://www.jmlr.org/papers/v11/cawley10a.html) | 후보 선택에 사용한 시즌과 이후 최종 평가를 분리 | 이번 문서 보완이 새로운 독립 검증 결과를 만들지는 않음 |
-| [NN/g: Stop Reporting UX Activity and Report Business Outcomes](https://www.nngroup.com/articles/reporting-ux-business-outcomes/) | 기능 목록을 관측·판단·다음 조치와 연결 | UX 보고 원칙만 참고. 측정하지 않은 시간 절감·비용 효과를 만들지 않음 |
-| [GitHub: About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) | 루트에 문제·결과·실행 경로를 두고 상세 계산을 문서로 연결 | README 가독성 구성 근거이며 직무 평가 효과의 실증 결과가 아님 |
+| [Gneiting & Raftery (2007), Strictly Proper Scoring Rules, Prediction, and Estimation](https://sites.stat.washington.edu/people/raftery/Research/PDF/Gneiting2007jasa.pdf) | Brier·LogLoss로 확률 예측을 평가하는 근거 | 적중률과 접수율을 대체하지 않음 |
+| [Cawley & Talbot (2010), On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation](https://www.jmlr.org/papers/v11/cawley10a.html) | 후보 선택 과정의 과적합과 성능 평가 편향 | 이미 확인한 시즌의 회고 진단을 독립 검증으로 표현하지 않음 |
+| [scikit-learn: Probability calibration](https://scikit-learn.org/stable/modules/calibration.html) | 확률 보정·판별력의 구분, 보정 곡선 해석 | Brier 하나의 개선으로 보정 개선이나 모델 우월성을 확정하지 않음 |
+| [scikit-learn: Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html) | 전처리와 특성 구성의 자료 누출 | 경기 전 입력과 사후 재구성 자료를 구분하는 점검 원칙 |
+| [scikit-learn: Permutation feature importance](https://scikit-learn.org/stable/modules/permutation_importance.html) | 상관 입력과 중요도의 해석 | 입력 중요도를 인과적 기여로 해석하지 않음 |
+| [Government Data Quality Framework](https://www.gov.uk/government/publications/the-government-data-quality-framework/the-government-data-quality-framework) | 완전성·유일성·일관성·시의성 구분 | 경기번호 결합과 접수 미확인 처리에 적용한 일반 원칙이며 대회 준수 인증이 아님 |
 
-## 연구 확장과 포스트시즌
+scikit-learn 문서는 개념 설명을 참고했습니다. 문서 조회와 운영 환경 업그레이드는 별개이며, 이 결산을 위해 운영 패키지를 변경하지 않았습니다.
 
-2026-10-14 확인. 아래 자료는 후속 연구의 설계 근거이며 실제 KBO 성능을 증명하는 결과가 아닙니다.
+## 설명과 재현
 
-| 자료 | 적용할 내용 | 적용 범위 |
-| --- | --- | --- |
-| [KBO 경기 운영 체제](https://m.koreabaseball.com/About/GameManage.aspx) | 와일드카드의 승리·무승부 조건, 3선승·4선승과 홈 배정 | 합성 시리즈의 구조 설명. 실제 경기 운영에는 당해 상세 규정 추가 확인 |
-| [Koh et al. (2021), WILDS](https://proceedings.mlr.press/v139/koh21a.html) | 학습 환경과 평가 환경이 달라질 때의 성능 평가 | KBO 자료에 대한 실증 결과가 아니므로 분포 변화의 존재·크기는 별도 점검 |
-| [Breck et al. (2017), The ML Test Score](https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/) | 데이터·모델·운영의 테스트와 감시를 함께 설계 | 체크리스트 충족을 운영 효과나 모델 우월성으로 환산하지 않음 |
-| [Hyndman & Athanasopoulos, Forecasting: Principles and Practice](https://otexts.com/fpp3/toolbox.html) | 예측 시점 이전 관측만 쓰는 순차 평가, 예측 시차별 오차 비교 | 야구 경기의 시점별 정보 가치를 별도로 측정해야 함 |
-| [Retrosheet 자료 안내](https://www.retrosheet.org/game.htm), [이용 조건](https://www.retrosheet.org/notice.txt) | 별도 공개 자료로 재현 연구를 만드는 후보, 요구되는 출처 고지 | 이번에는 안내·조건만 검토. MLB 자료의 성능을 KBO에 일반화하지 않음 |
+| 자료 | 반영한 내용 |
+| --- | --- |
+| [GitHub: About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) | 루트에 문제·결과·실행 방법을 두고 상세 근거를 문서로 연결 |
+| [GitHub Flavored Markdown 명세](https://github.github.com/gfm/) | 표·강조·링크의 렌더링 확인 |
 
-대회 제공 자료의 목적 외 사용 제한은 기존 [공개 정책](data-policy.md)을 따릅니다. 포스트시즌 자체 평가와 외부 자료 연구를 대회 참가 파이프라인에 자동으로 연결하지 않습니다.
+논문 원문과 외부 야구 데이터를 재배포하지 않습니다. 분석 방법을 설명하는 공개 합성 예제와 실제 대회 원장·내부 진단 산출물의 범위는 [데이터 정책](data-policy.md)을 따릅니다.
