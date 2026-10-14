@@ -4,13 +4,13 @@ KBO 승부예측 프로젝트의 공개 참가 결과, 운영 회고, 다음 연
 
 ## 읽는 순서
 
-1. [루트 README](../README.md): 프로젝트의 문제·현재 상태·공개 범위.
-2. [운영 대시보드 기록](dashboard-showcase.md): 화면 6개·운영 판단·기록 방식. [오프라인 HTML 모음](showcase/index.html)은 내려받아 브라우저에서 엽니다.
-3. [2026 시즌 결과와 회고](season-review-2026.md): 주최 측 공개 기록과 수동·자동 운영, 성적 해석.
-4. [연구 고도화 계획](research-plan.md): 현재 점검에서 이어지는 가설·실험·통과 기준.
-5. [참고 문헌](references.md): 각 논문·공식 문서의 적용 범위와 한계.
-6. [실험 기록 양식](experiment-log.md): 계획·실행·실패·보류를 구분하는 방법.
-7. [시스템 구조](architecture.md), [합성 데이터 데모](demo.md), [데이터·공개 정책](data-policy.md): 운영 책임, 실행 예제와 자료 조건.
+1. [루트 README](../README.md): 문제·시즌 결과·핵심 판단·실행 경로.
+2. [2026 시즌 결과와 회고](season-review-2026.md): 관측 → 판단 → 다음 조치, 완료 범위와 남은 과제.
+3. [지표 정의와 분모 대조](evaluation-guide.md): 독립 합성 9경기로 적중률·접수 증거·Brier·LogLoss를 재현.
+4. [운영 대시보드 기록](dashboard-showcase.md): 화면 6개와 운영 판단. [오프라인 HTML 모음](showcase/index.html)은 내려받아 브라우저에서 엽니다.
+5. [연구 고도화 계획](research-plan.md), [실험 기록 양식](experiment-log.md): 다음 실험의 가설·통과 기준·상태.
+6. [참고 문헌](references.md): 각 논문·공식 문서의 적용 범위와 한계.
+7. [시스템 구조](architecture.md), [합성 데이터 데모](demo.md), [데이터·공개 정책](data-policy.md): 운영 책임, 재현 범위와 자료 조건.
 
 ## 용어
 

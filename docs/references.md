@@ -29,7 +29,19 @@ scikit-learn의 조회 시점 stable 문서는 1.9.1입니다. 개념 설명을 
 
 ## 참가 결과와 조건의 출처
 
-- [중앙대학교 최강이조 팀 페이지](https://www.statiz.co.kr/prediction/?m=university_detail&ptt_idx=70): 2026-10-13 공개 표기인 16위·54.6%·게임 참여수 689경기·ALL KILL 5회 확인.
-- [2026-03-27 공식 대회 정책](https://statiz.co.kr/board/?b_code=10000&b_idx=4294959131&m=main&mode=view): 채점·접수 마감·데이터 이용·사후 자료 제출 조건 확인.
+- [중앙대학교 최강이조 팀 페이지](https://www.statiz.co.kr/prediction/?m=university_detail&ptt_idx=70): 2026-10-14 재확인한 공개 표기인 16위·54.6%·게임 참여수 689경기·ALL KILL 5회 확인.
+- [2026-03-27 공식 대회 정책](https://statiz.co.kr/board/?b_code=10000&b_idx=4294959131&m=main&mode=view): 채점·접수 마감·데이터 이용·사후 자료 제출 조건을 2026-10-14 재확인.
 
 공개 결과 페이지를 모델 입력으로 수집하지 않았습니다. 별도 참가 서약·FAQ와 사후 제출 공지를 모두 확보한 것은 아니며, 자료의 추가 공개는 [공개 정책](data-policy.md)에서 확인 범위를 기록합니다.
+
+## 결산을 분석 사례로 구성할 때 참고한 자료
+
+2026-10-14에 아래 공식 문서와 원문을 추가로 확인했습니다. 서로 다른 분야의 지침을 이 프로젝트에 적용한 편집·분석 판단이며, 외부 문헌이 실제 KBO 성과를 입증하는 것은 아닙니다.
+
+| 자료 | 이번 반영 | 적용 한계 |
+| --- | --- | --- |
+| [Government Data Quality Framework](https://www.gov.uk/government/publications/the-government-data-quality-framework/the-government-data-quality-framework) | 자료 완전성·유일성·일관성·시의성을 나누고, 접수 미확인과 미제출을 구분 | 정부 데이터 관리의 일반 원칙이며 이 대회의 준수 인증이 아님 |
+| [scikit-learn: Probability calibration](https://scikit-learn.org/stable/modules/calibration.html) | 적중률·Brier·LogLoss의 평가 범위를 명시하고 작은 합성 예제로 분모를 대조 | 확률 품질 지표 하나로 보정 개선이나 모델 우월성을 확정하지 않음 |
+| [Cawley & Talbot (2010)](https://www.jmlr.org/papers/v11/cawley10a.html) | 후보 선택에 사용한 시즌과 이후 최종 평가를 분리 | 이번 문서 보완이 새로운 독립 검증 결과를 만들지는 않음 |
+| [NN/g: Stop Reporting UX Activity and Report Business Outcomes](https://www.nngroup.com/articles/reporting-ux-business-outcomes/) | 기능 목록을 관측·판단·다음 조치와 연결 | UX 보고 원칙만 참고. 측정하지 않은 시간 절감·비용 효과를 만들지 않음 |
+| [GitHub: About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) | 루트에 문제·결과·실행 경로를 두고 상세 계산을 문서로 연결 | README 가독성 구성 근거이며 직무 평가 효과의 실증 결과가 아님 |
