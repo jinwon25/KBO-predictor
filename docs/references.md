@@ -45,3 +45,17 @@ scikit-learn의 조회 시점 stable 문서는 1.9.1입니다. 개념 설명을 
 | [Cawley & Talbot (2010)](https://www.jmlr.org/papers/v11/cawley10a.html) | 후보 선택에 사용한 시즌과 이후 최종 평가를 분리 | 이번 문서 보완이 새로운 독립 검증 결과를 만들지는 않음 |
 | [NN/g: Stop Reporting UX Activity and Report Business Outcomes](https://www.nngroup.com/articles/reporting-ux-business-outcomes/) | 기능 목록을 관측·판단·다음 조치와 연결 | UX 보고 원칙만 참고. 측정하지 않은 시간 절감·비용 효과를 만들지 않음 |
 | [GitHub: About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) | 루트에 문제·결과·실행 경로를 두고 상세 계산을 문서로 연결 | README 가독성 구성 근거이며 직무 평가 효과의 실증 결과가 아님 |
+
+## 연구 확장과 포스트시즌
+
+2026-10-14 확인. 아래 자료는 후속 연구의 설계 근거이며 실제 KBO 성능을 증명하는 결과가 아닙니다.
+
+| 자료 | 적용할 내용 | 적용 범위 |
+| --- | --- | --- |
+| [KBO 경기 운영 체제](https://m.koreabaseball.com/About/GameManage.aspx) | 와일드카드의 승리·무승부 조건, 3선승·4선승과 홈 배정 | 합성 시리즈의 구조 설명. 실제 경기 운영에는 당해 상세 규정 추가 확인 |
+| [Koh et al. (2021), WILDS](https://proceedings.mlr.press/v139/koh21a.html) | 학습 환경과 평가 환경이 달라질 때의 성능 평가 | KBO 자료에 대한 실증 결과가 아니므로 분포 변화의 존재·크기는 별도 점검 |
+| [Breck et al. (2017), The ML Test Score](https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/) | 데이터·모델·운영의 테스트와 감시를 함께 설계 | 체크리스트 충족을 운영 효과나 모델 우월성으로 환산하지 않음 |
+| [Hyndman & Athanasopoulos, Forecasting: Principles and Practice](https://otexts.com/fpp3/toolbox.html) | 예측 시점 이전 관측만 쓰는 순차 평가, 예측 시차별 오차 비교 | 야구 경기의 시점별 정보 가치를 별도로 측정해야 함 |
+| [Retrosheet 자료 안내](https://www.retrosheet.org/game.htm), [이용 조건](https://www.retrosheet.org/notice.txt) | 별도 공개 자료로 재현 연구를 만드는 후보, 요구되는 출처 고지 | 이번에는 안내·조건만 검토. MLB 자료의 성능을 KBO에 일반화하지 않음 |
+
+대회 제공 자료의 목적 외 사용 제한은 기존 [공개 정책](data-policy.md)을 따릅니다. 포스트시즌 자체 평가와 외부 자료 연구를 대회 참가 파이프라인에 자동으로 연결하지 않습니다.

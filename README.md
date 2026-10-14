@@ -94,9 +94,21 @@ python tools/check_publication.py
 
 ## 다음 연구
 
-입력 정의와 가용 시각을 먼저 고정하고, 예측일 이전 투수 SO·BB·TBF에서 표본 수를 고려한 비율을 만듭니다. 상대 지표 로지스틱·소형 트리·낮은 자유도의 확률 보정을 같은 날짜 분할로 비교할 계획입니다. 이미 점검한 2026년 자료는 개발·회고 자료로 표시하고 최종 후보는 이후 기간에서 평가합니다.
+기존 모델 검증 E0–E5에 더해, 정보를 언제 확보하고 어떤 조건에서 예측을 신뢰할지와 운영 자동화의 효과를 연구합니다. [발전 방향 비교](docs/development-roadmap.md)에 8개 방향의 질문·자료·산출물·우선순위를 정리했습니다.
 
-[가설·실험·통과 기준](docs/research-plan.md) · [실험 기록 양식](docs/experiment-log.md) · [참고 문헌과 적용 범위](docs/references.md)
+| 우선 방향 | 분석 질문 | 현재 상태 |
+| --- | --- | --- |
+| 데이터 품질·평가용 데이터마트 | 일정·예측·접수·결과의 누락과 차이가 평가에 어떤 영향을 주는가? | 설계 |
+| 예측 시점의 정보 가치 | 경기 직전 정보를 기다릴 때 확률 품질과 처리 여유가 어떻게 바뀌는가? | 설계 |
+| 실패 조건·단순 모델 비교 | 어떤 입력·상황에서 모델을 덜 믿어야 하는가? | 기존 E0–E4와 연결한 설계 |
+| 제출 없는 포스트시즌 평가 | 정규시즌에서 고정한 모델이 다른 환경에서도 작동하는가? | [프로토콜](docs/postseason-protocol.md) 설계, 자료 이용 조건 확인 필요 |
+| 시리즈 확률·민감도 | 경기 확률이 진출 확률과 예상 경기 수로 어떻게 연결되는가? | [독립 합성 예제](docs/series-scenarios.md) 구현·검증 |
+
+시리즈 예제는 추가 패키지 없이 `python -m demo.series_scenarios`로 실행합니다. 무승부 없는 가상 시리즈에서 매 경기 승률을 55%로 고정하면 7전4선승 진출 확률은 60.83%입니다. 이는 입력 가정을 변환한 계산이며 실제 팀의 예측 성과가 아닙니다.
+
+운영의 수동 개입·처리 지연 측정과 이용 조건이 명확한 별도 공개 자료의 재현 연구도 검토했습니다. 실제 자료의 신규 수집·포스트시즌 추론·모델 교체는 아직 실행하지 않았습니다. 이미 점검한 2026년 자료는 개발·회고 자료로 표시하고 이후 평가를 구분합니다.
+
+[모델 연구 E0–E5](docs/research-plan.md) · [실험 기록 양식](docs/experiment-log.md) · [참고 문헌](docs/references.md)
 
 ## 상세 문서와 자료 조건
 
@@ -105,6 +117,9 @@ python tools/check_publication.py
 | [docs/README.md](docs/README.md) | 읽는 순서와 용어 |
 | [docs/season-review-2026.md](docs/season-review-2026.md) | 참가 결과, 실제 관측과 판단, 미해결 범위 |
 | [docs/evaluation-guide.md](docs/evaluation-guide.md) | 지표의 분자·분모·제외 조건과 9경기 계산 |
+| [docs/development-roadmap.md](docs/development-roadmap.md) | 8개 발전 방향과 우선순위·완료 산출물 |
+| [docs/postseason-protocol.md](docs/postseason-protocol.md) | 제출 없는 경기 전 평가의 시점·무승부·자료 조건 |
+| [docs/series-scenarios.md](docs/series-scenarios.md) | 시리즈 진출 확률·예상 경기 수·가정 민감도 |
 | [docs/dashboard-showcase.md](docs/dashboard-showcase.md) | 운영 UI와 각 화면에서 내리는 판단 |
 | [docs/architecture.md](docs/architecture.md) | 운영 구성과 공개 데모의 재현 범위 |
 | [docs/data-policy.md](docs/data-policy.md) | 자료 이용 조건·공개 범위·규정 확인 한계 |
