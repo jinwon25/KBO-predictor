@@ -15,6 +15,10 @@ ASSETS = {'/': ('index.html', 'text/html; charset=utf-8'),
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         route = urlsplit(self.path).path
+        if route == '/favicon.ico':
+            self.send_response(204)
+            self.end_headers()
+            return
         if route == '/api/demo':
             payload = json.dumps(dashboard(), ensure_ascii=False).encode('utf-8')
             content_type = 'application/json; charset=utf-8'

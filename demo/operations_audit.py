@@ -1,5 +1,7 @@
 """일정 중심 SQL 대조. 기본 실행은 독립 합성 자료이며 네트워크를 쓰지 않는다."""
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal
+from demo.scoring import normalize_probability
 import json
 import math
 import sqlite3
@@ -7,19 +9,21 @@ import sqlite3
 SCHEMA = """
 PRAGMA foreign_keys=ON;
 CREATE TABLE schedule (
- game_key TEXT PRIMARY KEY, start_at REAL NOT NULL, cutoff_at REAL NOT NULL,
+ game_key TEXT NOT NULL PRIMARY KEY, start_at REAL NOT NULL, cutoff_at REAL NOT NULL,
  outcome TEXT NOT NULL CHECK(outcome IN ('home','away','draw','cancelled','pending')),
  eligible INTEGER NOT NULL CHECK(eligible IN (0,1))
 );
 CREATE TABLE retained_prediction (
- game_key TEXT PRIMARY KEY REFERENCES schedule(game_key),
+ game_key TEXT NOT NULL PRIMARY KEY REFERENCES schedule(game_key),
  probability_home REAL NOT NULL CHECK(probability_home BETWEEN 0 AND 1),
+ probability_units INTEGER NOT NULL CHECK(probability_units BETWEEN 0 AND 10000),
  generated_at REAL
 );
 CREATE TABLE receipt_event (
- event_id TEXT PRIMARY KEY, game_key TEXT NOT NULL REFERENCES schedule(game_key),
+ event_id TEXT NOT NULL PRIMARY KEY, game_key TEXT NOT NULL REFERENCES schedule(game_key),
  received_at REAL NOT NULL, succeeded INTEGER NOT NULL CHECK(succeeded IN (0,1)),
- probability_home REAL NOT NULL CHECK(probability_home BETWEEN 0 AND 1)
+ probability_home REAL NOT NULL CHECK(probability_home BETWEEN 0 AND 1),
+ probability_units INTEGER NOT NULL CHECK(probability_units BETWEEN 0 AND 10000)
 );
 CREATE VIEW game_audit AS
 WITH ranked AS (
@@ -36,7 +40,7 @@ SELECT s.*, p.probability_home, p.generated_at,
                   AND e.succeeded=1) THEN 'late_success_only'
       ELSE 'unconfirmed' END AS receipt_evidence,
  CASE WHEN r.event_id IS NOT NULL AND p.game_key IS NOT NULL
-      THEN ABS(r.probability_home-p.probability_home)<=0.00011
+      THEN r.probability_units=p.probability_units
       ELSE NULL END AS probability_matches
 FROM schedule s LEFT JOIN retained_prediction p USING(game_key)
 LEFT JOIN ranked r ON r.game_key=s.game_key AND r.ordinal=1;
@@ -58,6 +62,15 @@ def probability(value):
         raise ValueError("probability must be a finite number in [0, 1]")
     return value
 
+def identifier(value):
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("identifier must be a non-empty string")
+    return value
+
+def submission_units(value):
+    """Integer hundredths of a percentage point, using the shared demo rule."""
+    return int(normalize_probability(Decimal(str(value))*100)*100)
+
 def build_mart(schedule, predictions, receipts):
     """One schedule version and one retained prediction per game, all supplied events.
 
@@ -74,15 +87,18 @@ def build_mart(schedule, predictions, receipts):
             if cutoff >= start:
                 raise ValueError("cutoff must precede game start")
             con.execute("INSERT INTO schedule VALUES (?,?,?,?,?)",
-                        (s["game_key"], start, cutoff, s["outcome"], s["eligible"]))
+                        (identifier(s["game_key"]), start, cutoff, s["outcome"], s["eligible"]))
         for p in predictions:
-            con.execute("INSERT INTO retained_prediction VALUES (?,?,?)",
-                        (p["game_key"], probability(p["probability_home"]),
+            value = probability(p["probability_home"])
+            con.execute("INSERT INTO retained_prediction VALUES (?,?,?,?)",
+                        (identifier(p["game_key"]), value, submission_units(value),
                          timestamp(p["generated_at"]) if p.get("generated_at") else None))
         for r in receipts:
-            con.execute("INSERT INTO receipt_event VALUES (?,?,?,?,?)",
-                        (r["event_id"], r["game_key"], timestamp(r["received_at"]),
-                         r["succeeded"], probability(r["probability_home"])))
+            value = probability(r["probability_home"])
+            con.execute("INSERT INTO receipt_event VALUES (?,?,?,?,?,?)",
+                        (identifier(r["event_id"]), identifier(r["game_key"]),
+                         timestamp(r["received_at"]), r["succeeded"], value,
+                         submission_units(value)))
         con.commit()
     except Exception:
         con.close()

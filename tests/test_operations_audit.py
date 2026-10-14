@@ -1,4 +1,3 @@
-import math
 import sqlite3
 import unittest
 
@@ -73,6 +72,48 @@ class OperationsAuditTests(unittest.TestCase):
         con = build_mart(s,p,r)
         self.addCleanup(con.close)
         self.assertEqual(summarize(con)["successful_timestamp_tie_groups"], 1)
+
+    def test_missing_and_blank_identifiers_are_rejected(self):
+        for value in [None, "", "   ", "\t", 123, True]:
+            for group, field in [(0,"game_key"), (1,"game_key"),
+                                 (2,"game_key"), (2,"event_id")]:
+                inputs = synthetic_inputs()
+                inputs[group][0][field] = value
+                with self.subTest(value=value,group=group,field=field):
+                    with self.assertRaises(ValueError):
+                        build_mart(*inputs)
+
+    def test_probability_matching_uses_submission_rounding(self):
+        for saved, received, matches in [
+            (.6001,.6,0), (.60004,.6,1), (.60005,.6,0),
+            (.59995,.6,1), (.50005,.5,0), (.500049,.5,1),
+            (0,0,1), (1,1,1)
+        ]:
+            s,p,r = synthetic_inputs()
+            p[0]["probability_home"] = saved
+            r[1]["probability_home"] = received
+            con = build_mart(s,p,r)
+            try:
+                with self.subTest(saved=saved,received=received):
+                    row = con.execute(
+                        "SELECT probability_matches FROM game_audit WHERE game_key='A'"
+                    ).fetchone()
+                    self.assertEqual(row[0],matches)
+                    self.assertEqual(summarize(con)["generated_to_receipt_seconds"]["n"], matches)
+            finally:
+                con.close()
+
+    def test_backed_up_mart_keeps_probability_comparison(self):
+        s,p,r = synthetic_inputs()
+        p[0]["probability_home"] = .6001
+        source = build_mart(s,p,r)
+        self.addCleanup(source.close)
+        copy = sqlite3.connect(":memory:")
+        self.addCleanup(copy.close)
+        source.backup(copy)
+        self.assertEqual(copy.execute(
+            "SELECT probability_matches FROM game_audit WHERE game_key='A'"
+        ).fetchone()[0],0)
 
     def test_empty_mart_and_quantiles(self):
         con = build_mart([],[],[])

@@ -4,6 +4,7 @@ import struct
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 VIEWS = ('prediction', 'schedule', 'submission', 'accuracy', 'statistics', 'mobile')
@@ -55,6 +56,18 @@ class ShowcaseTests(unittest.TestCase):
         links = [attrs.get('href') for tag, attrs in parsed.elements if tag == 'a']
         for name in VIEWS:
             self.assertIn(name + '.html', links)
+        for href in links:
+            target = urlsplit(href)
+            if target.scheme in ("http", "https"):
+                continue
+            self.assertFalse(target.scheme or target.netloc, href)
+            path = (ROOT / 'docs/showcase' / unquote(target.path or 'index.html')).resolve()
+            self.assertTrue(path.is_relative_to(ROOT), href)
+            self.assertTrue(path.is_file(), href)
+            if target.fragment and path.suffix == '.html':
+                target_html = ParsedHTML(path.read_text(encoding='utf8'))
+                ids = {attrs.get('id') for _, attrs in target_html.elements}
+                self.assertIn(unquote(target.fragment), ids, href)
         for tag, attrs in parsed.elements:
             self.assertNotIn(tag, ('script', 'iframe', 'form'))
             if tag == 'img':
