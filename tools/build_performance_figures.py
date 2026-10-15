@@ -91,7 +91,7 @@ def build():
     ax.axvline(56.33333,color="#475569",ls="--",lw=1)
     ax.text(1.02,1.06,"적중/경기: 홈 · 원정",transform=ax.transAxes,fontsize=10,fontweight="bold")
     ax.legend(frameon=False,loc="upper left",bbox_to_anchor=(0,1.14),ncol=2)
-    fig.text(.07,.06,"점선: 최종 모델 전체 56.33%. 팀의 실제 승률이 아니라 경기 승자 예측의 적중률입니다.\n한 경기가 양 팀에 포함되므로 팀별 분모 합 600건 = 독립 300경기. 팀별 대진·시점 차이를 통제한 비교는 아닙니다.",fontsize=10,color="#64748B")
+    fig.text(.07,.06,"점선: 최종 모델 전체 56.33%. 팀의 실제 승률이 아니라 경기 승자 예측의 적중률입니다.\n한 경기가 양 팀에 포함되므로 팀별 분모 합 600건 = 고유 300경기. 팀별 대진·시점 차이를 통제한 비교는 아닙니다.",fontsize=10,color="#64748B")
     fig.savefig(OUT/"team-performance-2026.png",dpi=160,facecolor="white")
     plt.close(fig)
     print("공개 집계 표 검증 및 성능 차트 2개 생성 완료")
