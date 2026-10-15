@@ -9,6 +9,10 @@ REVIEWED_UI_IMAGES = {
     'docs/images/operating-ui-preview-' + name + '.png'
     for name in ('prediction', 'schedule', 'submission', 'accuracy', 'statistics', 'mobile')
 }
+REVIEWED_AGGREGATE_IMAGES = {
+    'docs/images/season-performance-2026.png',
+    'docs/images/team-performance-2026.png',
+}
 SKIP = {'.git', '__pycache__', '.venv', 'venv', 'reports'}
 
 
@@ -35,8 +39,8 @@ def inspect(paths):
         if path.stat().st_size > 2_000_000:
             errors.append(f'{name}: unusually large file')
         if path.suffix == '.png':
-            if not name.startswith('docs/images/demo-') and name not in REVIEWED_UI_IMAGES:
-                errors.append(f'{name}: only reviewed synthetic screenshots allowed')
+            if not name.startswith('docs/images/demo-') and name not in REVIEWED_UI_IMAGES and name not in REVIEWED_AGGREGATE_IMAGES:
+                errors.append(f'{name}: only reviewed synthetic screenshots or aggregate figures allowed')
             continue
         text = path.read_text(encoding='utf-8')
         if any(re.search(pattern, text) for pattern in patterns):

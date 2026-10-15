@@ -4,6 +4,8 @@
 
 [문서 목록](README.md) · [운영 기록 분석](operations-review.md) · [지표 정의](evaluation-guide.md)
 
+모델의 입력·학습·서빙 경로는 [모델링 구조](modeling.md), 실제 기간별·팀별 결과와 동일 경기 비교는 [예측 성능 결산](prediction-performance.md)에 정리했습니다.
+
 ## 참가 결과와 담당 범위
 
 2026년 10월 14일 [중앙대학교 최강이조 참가 페이지](https://www.statiz.co.kr/prediction/?m=university_detail&ptt_idx=70)를 조회했습니다.

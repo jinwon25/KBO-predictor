@@ -34,3 +34,17 @@ scikit-learn 문서는 개념 설명을 참고했습니다. 문서 조회와 운
 | [GitHub Flavored Markdown 명세](https://github.github.com/gfm/) | 표·강조·링크의 렌더링 확인 |
 
 논문 원문과 외부 야구 데이터를 재배포하지 않습니다. 분석 방법을 설명하는 공개 합성 예제와 실제 대회 원장·내부 진단 산출물의 범위는 [데이터 정책](data-policy.md)을 따릅니다.
+
+## 모델링·성능 설명 보완: 2026-10-15
+
+| 자료 | 적용한 내용 | 범위 |
+| --- | --- | --- |
+| [LightGBM Parameters](https://lightgbm.readthedocs.io/en/stable/Parameters.html) | 잎 수·최소 잎 표본·L1/L2·학습률의 의미 | 실제 설정값은 로컬 아티팩트 메타데이터로 대조 |
+| [LightGBM Booster](https://lightgbm.readthedocs.io/en/stable/pythonapi/lightgbm.Booster.html) | gain 중요도와 pred_contrib의 출력 의미 | 학습 중요도·로짓 기여도와 인과효과를 구분 |
+| [FanGraphs wRC+](https://library.fangraphs.com/offense/wrc/) · [wOBA](https://library.fangraphs.com/offense/woba/) | 입력 지표의 야구적 의미 | 정의 설명만 참고. 외부 경기 자료·MLB 계수를 모델 입력으로 가져오지 않음 |
+| [scikit-learn 확률 보정](https://scikit-learn.org/stable/modules/calibration.html) | Brier와 보정 곡선, 구간별 예측 확률·실제 발생률의 차이 | 실제 성적은 보존 원장 집계로 확인 |
+| [Cawley & Talbot (2010)](https://www.jmlr.org/papers/v11/cawley10a.html) | 반복 후보 선택과 평가 편향 | 선택 당시 재구성 403경기와 이후 운영 300경기를 분리 |
+
+내용의 근거는 [모델링 문서](modeling.md)와 [실제 예측 성능](prediction-performance.md)의 보존 산출물 목록에 정리했습니다. 다른 저장소와의 형식 비교에는 [KBO-pitcher-fatigue](https://github.com/jinwon25/KBO-pitcher-fatigue)와 [ecommerce-customer-segmentation](https://github.com/jinwon25/ecommerce-customer-segmentation)의 문제→방법→실제 수치→해석→재현 구조를 참고했습니다.
+
+2026-10-15 공식 정책·팀 페이지 재조회는 웹 접근 제한으로 성공하지 못했습니다. 따라서 공식 성적의 확인일은 2026-10-14로 유지하고, 당시 보관한 공식 정책 원문과 대조했습니다. 추가 참가 서약·FAQ 전체를 새로 확보한 것은 아닙니다.
